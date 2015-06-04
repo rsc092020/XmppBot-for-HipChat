@@ -10,9 +10,10 @@ namespace XmppBot.Plugins
     {
         public override string EvaluateEx(ParsedLine line)
         {
-            if (line.From.Equals("chris mojica", StringComparison.InvariantCultureIgnoreCase) && line.Raw.Contains("surprise"))
+            if (line.Raw.IndexOf("surprise", StringComparison.InvariantCultureIgnoreCase) +
+                line.Raw.IndexOf("suprise", StringComparison.InvariantCultureIgnoreCase) > 0)
             {
-                return "yes chris, we know you like surprises";
+                return "surprises, chris likes surprises!";
             }
 
             return null;
