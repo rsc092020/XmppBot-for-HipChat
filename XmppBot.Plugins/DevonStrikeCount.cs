@@ -17,7 +17,7 @@ namespace XmppBot.Plugins
                 return "Devon strike count at: " + _strikeCount;
             }
 
-            if (line.From.StartsWith("devon", StringComparison.InvariantCultureIgnoreCase))
+            if (line.User.Name == "Devon Gilbert")
             {
                 _strikeCount++;
 
