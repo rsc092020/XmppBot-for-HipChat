@@ -1,0 +1,1 @@
+XmppBot\bin\Debug\XmppBot.Service.exe stop
