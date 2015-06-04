@@ -101,5 +101,10 @@ namespace XmppBot.Common
         /// Should this plugin start out as enabled?
         /// </summary>
         public virtual bool EnabledByDefault { get { return true; } }
+
+        protected string GetDefaultRoomJid()
+        {
+            return Bot.Config.Rooms.Split(',').First() + "@" + Bot.Config.ConferenceServer;
+        }
     }
 }

@@ -27,12 +27,11 @@ namespace XmppBot.Common
         private static DirectoryCatalog _directoryCatalog = null;
         private static XmppClientConnection _client = null;
 
-
-        private XmppBotConfig _config;
+        public static XmppBotConfig Config;
 
         public Bot(XmppBotConfig config)
         {
-            _config = config;
+            Config = config;
         }
 
         public void Stop()
@@ -66,7 +65,7 @@ namespace XmppBot.Common
 
             log.Info(pluginList);
 
-            _client = new XmppClientConnection(_config.Server);
+            _client = new XmppClientConnection(Config.Server);
 
             //_client.ConnectServer = "talk.google.com"; //necessary if connecting to Google Talk
             _client.AutoResolveConnectServer = false;
@@ -76,8 +75,8 @@ namespace XmppBot.Common
             _client.OnError += new ErrorHandler(_client_OnError);
 
             log.Info("Connecting...");
-            _client.Resource = _config.Resource;
-            _client.Open(_config.User, _config.Password);
+            _client.Resource = Config.Resource;
+            _client.Open(Config.User, Config.Password);
             log.Info("Connected.");
 
             _client.OnRosterStart += new ObjectHandler(_client_OnRosterStart);
@@ -90,12 +89,12 @@ namespace XmppBot.Common
         {
             MucManager mucManager = new MucManager(_client);
 
-            string[] rooms = _config.Rooms.Split(',');
+            string[] rooms = Config.Rooms.Split(',');
 
             foreach (string room in rooms)
             {
-                Jid jid = new Jid(room + "@" + _config.ConferenceServer);
-                mucManager.JoinRoom(jid, _config.RoomNick);
+                Jid jid = new Jid(room + "@" + Config.ConferenceServer);
+                mucManager.JoinRoom(jid, Config.RoomNick);
             }
         }
 
@@ -212,7 +211,7 @@ namespace XmppBot.Common
         {
             //msg.from or jid
             if (!jid.Contains("@"))
-                jid = jid + "@" + _config.Server;
+                jid = jid + "@" + Config.Server;
 
             SendMessage(new Jid(jid), text, (MessageType)messageType);
         }
@@ -221,7 +220,10 @@ namespace XmppBot.Common
         {
             if (text == null) return;
 
-            _client.Send(new Message(to, type, text));
+            if (_client != null)
+            {
+                _client.Send(new Message(to, type, text));
+            }
         }
 
         #endregion
