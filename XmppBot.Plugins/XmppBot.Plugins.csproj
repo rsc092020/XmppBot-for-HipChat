@@ -57,8 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChrisSurprises.cs" />
-    <Compile Include="DevonStrikeCount.cs" />
     <Compile Include="CountdownTimer.cs" />
+    <Compile Include="DevonCorrection.cs" />
+    <Compile Include="DevonStrikeCount.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reminder.cs" />
