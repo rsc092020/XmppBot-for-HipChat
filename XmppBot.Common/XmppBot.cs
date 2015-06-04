@@ -121,8 +121,8 @@ namespace XmppBot.Common
                 }
 
                 // we can't find a user or this is the bot talking
-                if (null == user || _config.RoomNick == user.Name)
-                    return;
+                //if (null == user || _config.RoomNick == user.Name)
+                //    return;
 
                 ParsedLine line = new ParsedLine(msg.From.Bare, msg.Body.Trim(), msg.From.User, user, (BotMessageType) msg.Type);
 
