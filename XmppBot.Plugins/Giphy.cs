@@ -41,10 +41,15 @@ namespace XmppBot.Plugins
                         var results = JsonConvert.DeserializeObject<GiphyDatas>(await response.Content.ReadAsStringAsync());
 
                         var data = results != null && results.data != null ? results.data.FirstOrDefault() : null;
+                        var any = results != null && results.data != null && results.data.Any();
 
                         if (data != null && data.images != null && data.images.original != null)
                         {
                             this.SendMessage(data.images.original.url, line.From, BotMessageType.groupchat);
+                        }
+                        else if (!any)
+                        {
+                            this.SendMessage("I no find gif...", line.From, BotMessageType.groupchat);
                         }
                     }
                 }
