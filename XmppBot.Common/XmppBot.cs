@@ -18,7 +18,7 @@ namespace XmppBot.Common
     public class Bot
     {
         #region log4net
-        private static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        public static readonly ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #endregion
 
         private const int MaxRosterSize = 100;
