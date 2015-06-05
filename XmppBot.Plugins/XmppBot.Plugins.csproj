@@ -66,6 +66,7 @@
     <Compile Include="CountdownTimer.cs" />
     <Compile Include="DevonCorrection.cs" />
     <Compile Include="DevonStrikeCount.cs" />
+    <Compile Include="Ping.cs" />
     <Compile Include="Giphy.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
