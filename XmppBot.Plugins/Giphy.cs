@@ -27,14 +27,24 @@ namespace XmppBot.Plugins
         {
             if (!line.IsCommand || !_aliases.Contains(line.Command.ToLower())) return null;
 
-            var args = string.Join(" ", line.Args);
+            var index = 0;
 
+            var args = line.Args.AsEnumerable();
+
+            if (line.Args.Length > 1 && int.TryParse(line.Args[0], out index))
+            {
+                args = args.Skip(1);
+            }
+
+            var query = string.Join(" ", args);
 
             Task.Factory.StartNew(async () =>
             {
                 using (var client = new HttpClient())
                 {
-                    var response = await client.GetAsync(new Uri("http://api.giphy.com/v1/gifs/search?q=" + HttpUtility.UrlEncode(args) + "&api_key=dc6zaTOxFJmzC"));
+                    var uriString = string.Format("http://api.giphy.com/v1/gifs/search?q={0}&limit=1&offset={1}&api_key=dc6zaTOxFJmzC", HttpUtility.UrlEncode(query), index);
+
+                    var response = await client.GetAsync(new Uri(uriString));
 
                     if (response.IsSuccessStatusCode)
                     {
