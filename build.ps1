@@ -1,6 +1,6 @@
-msbuild XmppBot.sln
-
 XmppBot\bin\Debug\XmppBot.Service.exe stop
+
+msbuild XmppBot.sln
 
 XmppBot\bin\Debug\XmppBot.Service.exe uninstall
 
