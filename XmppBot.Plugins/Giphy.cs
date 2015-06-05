@@ -16,9 +16,16 @@ namespace XmppBot.Plugins
     [Export(typeof(IXmppBotPlugin))]
     public class Giphy : XmppBotPluginBase, IXmppBotPlugin
     {
+        private readonly HashSet<string> _aliases = new HashSet<string>(new[]
+        {
+            "giphy",
+            "gihpy",
+            "giffy"
+        }, StringComparer.InvariantCultureIgnoreCase);
+
         public override string EvaluateEx(ParsedLine line)
         {
-            if (!line.IsCommand || line.Command.ToLower() != "giphy") return null;
+            if (!line.IsCommand || !_aliases.Contains(line.Command.ToLower())) return null;
 
             var args = string.Join(" ", line.Args);
 
