@@ -25,6 +25,8 @@ namespace XmppBot.Plugins
 
         public override string EvaluateEx(ParsedLine line)
         {
+            
+
             if (!line.IsCommand || !_aliases.Contains(line.Command.ToLower())) return null;
 
             var index = 0;
@@ -38,39 +40,43 @@ namespace XmppBot.Plugins
 
             var query = string.Join(" ", args);
 
-            Task.Factory.StartNew(async () =>
+            var result = GetGif(query, index).Result;
+
+            return result;
+        }
+
+        private static async Task<string> GetGif(string query, int index)
+        {
+            using (var client = new HttpClient())
             {
-                using (var client = new HttpClient())
+                var uriString = string.Format("http://api.giphy.com/v1/gifs/search?q={0}&limit=1&offset={1}&api_key=dc6zaTOxFJmzC", HttpUtility.UrlEncode(query), index);
+
+                var response = await client.GetAsync(new Uri(uriString));
+
+                if (response.IsSuccessStatusCode)
                 {
-                    var uriString = string.Format("http://api.giphy.com/v1/gifs/search?q={0}&limit=1&offset={1}&api_key=dc6zaTOxFJmzC", HttpUtility.UrlEncode(query), index);
+                    var results = JsonConvert.DeserializeObject<GiphyDatas>(await response.Content.ReadAsStringAsync());
 
-                    var response = await client.GetAsync(new Uri(uriString));
+                    var data = results != null && results.data != null ? results.data.FirstOrDefault() : null;
+                    var any = results != null && results.data != null && results.data.Any();
 
-                    if (response.IsSuccessStatusCode)
+                    if (data != null && data.images != null && data.images.original != null)
                     {
-                        var results = JsonConvert.DeserializeObject<GiphyDatas>(await response.Content.ReadAsStringAsync());
-
-                        var data = results != null && results.data != null ? results.data.FirstOrDefault() : null;
-                        var any = results != null && results.data != null && results.data.Any();
-
-                        if (data != null && data.images != null && data.images.original != null)
-                        {
-                            this.SendMessage(data.images.original.url, line.From, BotMessageType.groupchat);
-                        }
-                        else if (!any)
-                        {
-                            this.SendMessage("I no find gif...", line.From, BotMessageType.groupchat);
-                        }
+                        return data.images.original.url;
+                    }
+                    else if (!any)
+                    {
+                        return "I no find gif...";
                     }
                 }
-            });
+            }
 
-            return null;
+            return "I had a problem finding a gif. :(";
         }
 
         public override string Name
         {
-            get { return "User Actions"; }
+            get { return "Giphy"; }
         }
 
         private class GiphyDatas
