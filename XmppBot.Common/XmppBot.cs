@@ -147,10 +147,10 @@ namespace XmppBot.Common
                         SendMessage(msg.From, helpText.ToString(), msg.Type);
 
                         break;
-                    case "close":
-                        SendMessage(msg.From, "I'm a quitter...", msg.Type);
-                        Environment.Exit(1);
-                        return;
+                    //case "close":
+                    //    SendMessage(msg.From, "I'm a quitter...", msg.Type);
+                    //    Environment.Exit(1);
+                    //    return;
 
                     case "reload":
                         SendMessage(msg.From, LoadPlugins(), msg.Type);
