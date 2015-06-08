@@ -12,7 +12,8 @@ namespace XmppBot.Plugins
 
         public override string EvaluateEx(ParsedLine line)
         {
-            if (line.Raw.ToLower().Contains("devon"))
+            if (line.Raw.ToLower().Contains("devon") &&
+                !line.Raw.ToLower().StartsWith("devon strike count"))
             {
                 return "I think you mean " + Correction;
             }
