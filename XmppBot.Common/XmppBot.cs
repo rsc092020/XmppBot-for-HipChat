@@ -159,7 +159,14 @@ namespace XmppBot.Common
                     default:
                         Task.Factory.StartNew(() =>
                                               Parallel.ForEach(Plugins,
-                                                  plugin => SendMessage(msg.From, plugin.Evaluate(line), msg.Type)
+                                                  async plugin =>
+                                                  {
+                                                      var message = plugin.Evaluate(line);
+
+                                                      await Task.Delay(300);
+
+                                                      SendMessage(msg.From, message, msg.Type);
+                                                  }
                                                   ));
                         break;
                 }
