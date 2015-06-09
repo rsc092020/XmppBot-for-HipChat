@@ -9,11 +9,13 @@ namespace XmppBot.Plugins
     public class DevonCorrection : XmppBotPluginBase, IXmppBotPlugin
     {
         private const string Correction = "Dilbert";
+        private static readonly Random _random = new Random();
 
         public override string EvaluateEx(ParsedLine line)
         {
             if (line.Raw.ToLower().Contains("devon") &&
-                !line.Raw.ToLower().StartsWith("devon strike count"))
+                !line.Raw.ToLower().StartsWith("devon strike count") &&
+                _random.Next(4) == 0)
             {
                 return "I think you mean " + Correction;
             }
