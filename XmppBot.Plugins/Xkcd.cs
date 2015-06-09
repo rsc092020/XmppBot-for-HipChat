@@ -16,8 +16,6 @@ namespace XmppBot.Plugins
     [Export(typeof(IXmppBotPlugin))]
     public class Xkcd : XmppBotPluginBase, IXmppBotPlugin
     {
-        private static readonly Random _random = new Random();
-
         public override string EvaluateEx(ParsedLine line)
         {
             if (line.Raw.IndexOf("http://xkcd", StringComparison.InvariantCultureIgnoreCase) >= 0)
@@ -37,11 +35,21 @@ namespace XmppBot.Plugins
 
         private string Format(Tuple<HtmlNode, string> scrape)
         {
+            if (scrape == null || scrape.Item1 == null)
+            {
+                return null;
+            }
+
             return scrape.Item1.Attributes["src"].Value;
         }
 
         private Tuple<HtmlNode, string> Scrape(string html)
         {
+            if (string.IsNullOrWhiteSpace(html))
+            {
+                return null;
+            }
+
             var document = new HtmlDocument();
             document.LoadHtml(html);
             var image = document.DocumentNode.QuerySelectorAll("#comic img").FirstOrDefault();
@@ -63,6 +71,8 @@ namespace XmppBot.Plugins
                     return content;
                 }
             }
+
+            return null;
         }
 
         public override string Name
