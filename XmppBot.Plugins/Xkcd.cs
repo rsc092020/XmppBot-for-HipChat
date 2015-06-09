@@ -18,16 +18,23 @@ namespace XmppBot.Plugins
     {
         public override string EvaluateEx(ParsedLine line)
         {
-            if (line.Raw.IndexOf("http://xkcd", StringComparison.InvariantCultureIgnoreCase) >= 0)
+            try
             {
-                return "(haha)";
+                if (line.Raw.IndexOf("http://xkcd", StringComparison.InvariantCultureIgnoreCase) >= 0)
+                {
+                    return "(haha)";
+                }
+
+                if (line.IsCommand && line.Command == "xkcd")
+                {
+                    var html = GetHtml("http://dynamic.xkcd.com/random/comic/").Result;
+
+                    return Format(Scrape(html));
+                }
             }
-
-            if (line.IsCommand && line.Command == "xkcd")
+            catch (Exception)
             {
-                var html = GetHtml("http://dynamic.xkcd.com/random/comic/").Result;
-
-                return Format(Scrape(html));
+                
             }
 
             return null;
