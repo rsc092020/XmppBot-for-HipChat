@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GoT.cs" />
     <Compile Include="MacBuildServer.cs" />
     <Compile Include="ChrisSurprises.cs" />
     <Compile Include="CountdownTimer.cs" />
