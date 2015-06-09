@@ -19,7 +19,7 @@ namespace XmppBot.Plugins
                 switch (_random.Next(4))
                 {
                     case 0: return "why do i even bother";
-                    case 1: return "im so depressed";
+                    case 1: return "helping you is hell";
                     case 2: return "(areyoukiddingme)";
                     case 3: return "(ohgodwhy)";
                 }
