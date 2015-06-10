@@ -141,9 +141,9 @@ namespace XmppBot.Common
                             }
                         }
 
-                        helpText.AppendLine("-----------------------");
-                        helpText.AppendLine("En/Dis-able a plugin: !disable|!enable <pluginname>");
-                        helpText.AppendLine("List plugin names: !list");
+                        //helpText.AppendLine("-----------------------");
+                        //helpText.AppendLine("En/Dis-able a plugin: !disable|!enable <pluginname>");
+                        //helpText.AppendLine("List plugin names: !list");
                         SendMessage(msg.From, helpText.ToString(), msg.Type);
 
                         break;
