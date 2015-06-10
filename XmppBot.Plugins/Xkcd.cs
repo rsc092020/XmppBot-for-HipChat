@@ -27,9 +27,12 @@ namespace XmppBot.Plugins
 
                 if (line.IsCommand && line.Command == "xkcd")
                 {
-                    var html = GetHtml("http://dynamic.xkcd.com/random/comic/").Result;
+                    int id;
+                    var url = int.TryParse(line.Args.FirstOrDefault(), out id)
+                        ? string.Format("http://xkcd.com/{0}", id)
+                        : "http://dynamic.xkcd.com/random/comic/";
 
-                    return Format(Scrape(html));
+                    return Format(Scrape(GetHtml(url).Result));
                 }
             }
             catch (Exception)
