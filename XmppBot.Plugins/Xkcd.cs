@@ -47,7 +47,7 @@ namespace XmppBot.Plugins
                 return null;
             }
 
-            return scrape.Item1.Attributes["src"].Value;
+            return "http:" + scrape.Item1.Attributes["src"].Value;
         }
 
         private Tuple<HtmlNode, string> Scrape(string html)
