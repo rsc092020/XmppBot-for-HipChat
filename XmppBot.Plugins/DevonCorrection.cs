@@ -13,6 +13,11 @@ namespace XmppBot.Plugins
 
         public override string EvaluateEx(ParsedLine line)
         {
+            if (line.IsCommand)
+            {
+                return null;
+            }
+
             if (line.Raw.ToLower().Contains("devon") &&
                 !line.Raw.ToLower().StartsWith("devon strike count") &&
                 _random.Next(4) == 0)
