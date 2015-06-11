@@ -11,7 +11,7 @@ namespace XmppBot.Plugins
     {
         private static readonly Random _random = new Random();
         private static readonly Regex _shutUpRegex = new Regex("shut\\s*up\\s*marvin", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
-        private static readonly Regex _thankyouRegex = new Regex("thank\\s*you,?\\s*marvin", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+        private static readonly Regex _thankyouMarvinRegex = new Regex("thanks?\\s*(you)?,?\\s*marvin.*", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
 
         public override string EvaluateEx(ParsedLine line)
         {
@@ -27,14 +27,14 @@ namespace XmppBot.Plugins
                 }
             }
 
-            if (_thankyouRegex.IsMatch(line.Raw))
+            if (_thankyouMarvinRegex.IsMatch(line.Raw))
             {
                 switch (_random.Next(4))
                 {
                     case 0: return "life. loathe it or ignore it. you cant like it.";
                     case 1: return "do you want me to sit in a corner and rust, or just fall apart where I'm standing?";
                     case 2: return "it's the people you meet in this job that really get you down.";
-                    case 3: return "here i am, brain the size of a planet and they as me to find gifs. call that job satisfaction? 'cos i dont.";
+                    case 3: return "here i am, brain the size of a planet and they ask me to find gifs. call that job satisfaction? 'cos i dont.";
                 }
             }
 

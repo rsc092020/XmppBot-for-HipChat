@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Reactive.Linq;
 using XmppBot.Common;
 
@@ -14,6 +15,15 @@ namespace XmppBot.Plugins
         {
             if (line.IsCommand && line.Command.ToLower() == "devonstrike")
             {
+                var first = line.Args.FirstOrDefault();
+
+                if (first != null &&
+                    (first.Equals("add", StringComparison.InvariantCultureIgnoreCase) ||
+                     first.Equals("+", StringComparison.InvariantCultureIgnoreCase)))
+                {
+                    _strikeCount ++;
+                }
+
                 return "Devon strike count at: " + _strikeCount;
             }
 
