@@ -24,6 +24,26 @@ namespace XmppBot.Plugins
                     _strikeCount ++;
                 }
 
+                if (first != null && 
+                    first.Equals("reset", StringComparison.InvariantCultureIgnoreCase) &&
+                    line.From.IndexOf("devon", StringComparison.InvariantCultureIgnoreCase) < 0)
+                {
+                    _strikeCount = 0;
+                }
+
+                if (first != null &&
+                    first.Equals("set", StringComparison.InvariantCultureIgnoreCase) &&
+                    line.From.IndexOf("devon", StringComparison.InvariantCultureIgnoreCase) < 0)
+                {
+                    var count = line.Args.Skip(1).FirstOrDefault();
+                    int iCount;
+
+                    if (int.TryParse(count, out iCount))
+                    {
+                        _strikeCount = iCount;
+                    }
+                }
+
                 return "Devon strike count at: " + _strikeCount;
             }
 
@@ -33,22 +53,21 @@ namespace XmppBot.Plugins
 
                 if (_strikeCount % 5 == 0)
                 {
+                    var message = string.Format("Devon strike count {0}", _strikeCount);
 
-                    string message = string.Format("Devon strike count {0}", _strikeCount);
-
-                    if (_strikeCount > 30)
+                    if (_strikeCount > 30 && _strikeCount < 40)
                     {
                         message = string.Format("WOW! A new strike record! Devon strike count {0}", _strikeCount);
                     }
-                    else if (_strikeCount > 50)
+                    else if (_strikeCount < 50)
                     {
                         message = string.Format("UNSTOPPABLE! Devon strike count {0}!", _strikeCount);
                     }
-                    else if (_strikeCount > 70)
+                    else if (_strikeCount < 60)
                     {
                         message = string.Format("GODLIKE! Devon strike count {0}!", _strikeCount);
                     }
-                    else if (_strikeCount > 70)
+                    else if (_strikeCount < 70)
                     {
                         message = string.Format("Somebody stop him!!! Devon strike count {0}!", _strikeCount);
                     }
