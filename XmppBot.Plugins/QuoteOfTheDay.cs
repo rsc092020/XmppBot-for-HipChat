@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Reactive.Linq;
 using XmppBot.Common;
 
 namespace XmppBot.Plugins
@@ -23,9 +24,28 @@ namespace XmppBot.Plugins
             "r"
         }, StringComparer.InvariantCultureIgnoreCase);
 
+        private readonly TimeSpan _startTime = new TimeSpan(0, 9, 30, 0);
         private static readonly Random _random = new Random();
         private DateTime _currentQuoteDay = DateTime.Today;
         private string _currentQuote = "";
+
+        public QuoteOfTheDay()
+        {
+            var nextStartTime = DateTime.Now.Date.Add(_startTime);
+
+            if (nextStartTime < DateTime.Now)
+            {
+                nextStartTime = nextStartTime.AddDays(1);
+            }
+
+            var seq = Observable.Timer(nextStartTime.AddMinutes(-1), TimeSpan.FromDays(1));
+
+            seq.Subscribe(msg =>
+            {
+                this.SendMessage("Quote of the day: \n" + GetQuoteOfTheDay(),
+                    GetDefaultRoomJid(), BotMessageType.groupchat);
+            });
+        }
 
         public override string EvaluateEx(ParsedLine line)
         {
