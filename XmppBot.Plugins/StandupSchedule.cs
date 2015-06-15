@@ -25,8 +25,11 @@ namespace XmppBot.Plugins
 
             seq.Subscribe(msg =>
             {
-                this.SendMessage("Standup starts in 2 minutes guys. Be there or be square!",
-                    GetDefaultRoomJid(), BotMessageType.groupchat);
+                if (DateTime.Now.DayOfWeek != DayOfWeek.Saturday && DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
+                {
+                    this.SendMessage("Standup starts in 2 minutes guys. Be there or be square!",
+                        GetDefaultRoomJid(), BotMessageType.groupchat);
+                }
             });
         }
 
