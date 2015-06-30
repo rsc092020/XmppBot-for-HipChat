@@ -9,42 +9,50 @@ namespace XmppBot.Plugins
     [Export(typeof(IXmppBotPlugin))]
     public class DevonStrikeCount : XmppBotPluginBase, IXmppBotPlugin
     {
-        private int _strikeCount = 20;
+        private ulong _strikeCount = 20;
 
         public override string EvaluateEx(ParsedLine line)
         {
             if (line.IsCommand && line.Command.ToLower() == "devonstrike")
             {
-                var first = line.Args.FirstOrDefault();
-
-                if (first != null &&
-                    (first.Equals("add", StringComparison.InvariantCultureIgnoreCase) ||
-                     first.Equals("+", StringComparison.InvariantCultureIgnoreCase)))
+                if (line.User.Name.IndexOf("devon", StringComparison.InvariantCultureIgnoreCase) < 0)
                 {
-                    _strikeCount ++;
-                }
+                    var first = line.Args.FirstOrDefault();
 
-                if (first != null && 
-                    first.Equals("reset", StringComparison.InvariantCultureIgnoreCase) &&
-                    line.From.IndexOf("devon", StringComparison.InvariantCultureIgnoreCase) < 0)
-                {
-                    _strikeCount = 0;
-                }
-
-                if (first != null &&
-                    first.Equals("set", StringComparison.InvariantCultureIgnoreCase) &&
-                    line.From.IndexOf("devon", StringComparison.InvariantCultureIgnoreCase) < 0)
-                {
-                    var count = line.Args.Skip(1).FirstOrDefault();
-                    int iCount;
-
-                    if (int.TryParse(count, out iCount))
+                    if (first != null &&
+                        (first.Equals("add", StringComparison.InvariantCultureIgnoreCase) ||
+                         first.Equals("+", StringComparison.InvariantCultureIgnoreCase)))
                     {
-                        _strikeCount = iCount;
+                        _strikeCount ++;
                     }
-                }
 
-                return "Devon strike count at: " + _strikeCount;
+                    if (first != null &&
+                        first.Equals("reset", StringComparison.InvariantCultureIgnoreCase) &&
+                        line.From.IndexOf("devon", StringComparison.InvariantCultureIgnoreCase) < 0)
+                    {
+                        _strikeCount = 0;
+                    }
+
+                    if (first != null &&
+                        first.Equals("set", StringComparison.InvariantCultureIgnoreCase) &&
+                        line.From.IndexOf("devon", StringComparison.InvariantCultureIgnoreCase) < 0)
+                    {
+                        var count = line.Args.Skip(1).FirstOrDefault();
+                        ulong lCount;
+
+                        if (ulong.TryParse(count, out lCount))
+                        {
+                            _strikeCount = lCount;
+                        }
+                    }
+
+                    return "Devon strike count at: " + _strikeCount;
+                }
+                else
+                {
+                    _strikeCount += _strikeCount * 100;
+                    return "Nice try devon (derp)";
+                }
             }
 
             if (line.User.Name == "Devon Gilbert")
