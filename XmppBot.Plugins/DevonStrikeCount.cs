@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Reactive.Linq;
+
 using XmppBot.Common;
 
 namespace XmppBot.Plugins
@@ -9,13 +9,24 @@ namespace XmppBot.Plugins
     [Export(typeof(IXmppBotPlugin))]
     public class DevonStrikeCount : XmppBotPluginBase, IXmppBotPlugin
     {
+        private const string DevonsId = "92448_2201366";
         private ulong _strikeCount = 20;
 
         public override string EvaluateEx(ParsedLine line)
         {
+            if (line.User.Id == DevonsId && line.User.Name.IndexOf("devon", StringComparison.InvariantCultureIgnoreCase) < 0)
+            {
+                _strikeCount += _strikeCount;
+            }
+
+            if (line.User.Id == DevonsId && line.Raw.Contains("strike"))
+            {
+                _strikeCount += _strikeCount;
+            }
+
             if (line.IsCommand && line.Command.ToLower() == "devonstrike")
             {
-                if (line.User.Name.IndexOf("devon", StringComparison.InvariantCultureIgnoreCase) < 0)
+                if (line.User.Id != DevonsId)
                 {
                     var first = line.Args.FirstOrDefault();
 
@@ -55,7 +66,7 @@ namespace XmppBot.Plugins
                 }
             }
 
-            if (line.User.Name == "Devon Gilbert")
+            if (line.User.Id == DevonsId)
             {
                 _strikeCount++;
 
