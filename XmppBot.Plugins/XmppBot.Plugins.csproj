@@ -75,6 +75,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Kenneth.cs" />
     <Compile Include="QuoteOfTheDay.cs" />
     <Compile Include="Xkcd.cs" />
     <Compile Include="GoT.cs" />
