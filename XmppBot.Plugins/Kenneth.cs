@@ -24,7 +24,7 @@ namespace XmppBot.Plugins
             if ((tokens.Contains("kenneth") || tokens.Contains("ken")) &&
                 _random.Next(1) == 0)
             {
-                return "yea, i miss kenneth too";
+                return "yea, i miss kenneth too :'(";
             }
 
             return null;

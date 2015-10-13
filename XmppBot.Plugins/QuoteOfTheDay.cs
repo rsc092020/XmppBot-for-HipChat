@@ -44,7 +44,7 @@ namespace XmppBot.Plugins
             {
                 if (DateTime.Now.DayOfWeek != DayOfWeek.Saturday && DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
                 {
-                    this.SendMessage("Quote of the day: \n" + GetQuoteOfTheDay(),
+                    this.SendMessage("Quote of the day: \"" + GetQuoteOfTheDay() + "\"",
                         GetDefaultRoomJid(), BotMessageType.groupchat);
                 }
             });
@@ -109,6 +109,8 @@ namespace XmppBot.Plugins
             Tuple.Create("I haven't touched that module in weeks!", 1),
             Tuple.Create("Somebody must have changed my code!", 1),
             Tuple.Create("I like Freebirds, I don't think that will be much of a surprise though. -Chris Mojica", 5),
+            Tuple.Create("I love surprises so I'm going to wait.", 3),
+            Tuple.Create("I think you should change it from saying \"Chris Mojica\" to say (Chris Mojica) -Jeff Lott", 3),
             Tuple.Create("Chick-fil-a anyone? -Chris Mojica", 5),
             Tuple.Create("Famous.js is the future.", 5),
             Tuple.Create("I didn't know she was 16!", 2),

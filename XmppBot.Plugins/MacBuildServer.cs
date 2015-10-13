@@ -4,7 +4,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using System.Web.SessionState;
 using XmppBot.Common;
 
 namespace XmppBot.Plugins
@@ -14,6 +14,8 @@ namespace XmppBot.Plugins
     {
         private static readonly IEnumerable<string> _ips;
         private static string _currentIp;
+
+        private static bool _looking = false;
 
         static MacBuildServer()
         {
@@ -37,9 +39,16 @@ namespace XmppBot.Plugins
                 return null;
             }
 
-            Task.Factory.StartNew(() => FindIpAddress(line));
+            if (_looking)
+            {
+                return "(sweetjesus) hold your horses, I'm already looking!";
+            }
+            else
+            {
+                Task.Factory.StartNew(() => FindIpAddress(line));
 
-            return "Alright, I'm looking for the mac team city server. I'll let you know when I find it.";
+                return "Alright, I'm looking for the mac team city server. I'll let you know when I find it.";
+            }
         }
 
         public override string Name
@@ -51,6 +60,8 @@ namespace XmppBot.Plugins
         {
             try
             {
+                _looking = true;
+
                 using (var client = new HttpClient())
                 {
                     client.Timeout = TimeSpan.FromSeconds(5);
@@ -87,15 +98,20 @@ namespace XmppBot.Plugins
 
                     if (string.IsNullOrWhiteSpace(_currentIp))
                     {
-                        this.SendMessage("Hmmm. I couldn't find the mac team city server... (shrug)", line.From, BotMessageType.groupchat);
+                        this.SendMessage("Hmmm. I couldn't find the mac team city server... (shrug)", line.From,
+                            BotMessageType.groupchat);
                     }
                 }
             }
             catch (Exception)
             {
-                this.SendMessage("Something happened and I couldn't find the mac team city server.", line.From, BotMessageType.groupchat);
+                this.SendMessage("Something happened and I couldn't find the mac team city server.", line.From,
+                    BotMessageType.groupchat);
             }
-            
+            finally
+            {
+                _looking = false;
+            }
         }
 
         private void PrintIp(string ip, ParsedLine line)

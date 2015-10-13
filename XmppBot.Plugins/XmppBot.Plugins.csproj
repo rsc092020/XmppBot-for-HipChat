@@ -75,6 +75,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Chompy.cs" />
+    <Compile Include="Exceptions.cs" />
+    <Compile Include="Derp.cs" />
     <Compile Include="Kenneth.cs" />
     <Compile Include="QuoteOfTheDay.cs" />
     <Compile Include="Xkcd.cs" />

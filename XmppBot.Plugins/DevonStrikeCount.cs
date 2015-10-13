@@ -70,23 +70,23 @@ namespace XmppBot.Plugins
             {
                 _strikeCount++;
 
-                if (_strikeCount % 5 == 0)
+                if (_strikeCount % 20 == 0)
                 {
                     var message = string.Format("Devon strike count {0}", _strikeCount);
 
-                    if (_strikeCount > 30 && _strikeCount < 40)
+                    if (_strikeCount > 50 && _strikeCount < 100)
                     {
                         message = string.Format("WOW! A new strike record! Devon strike count {0}", _strikeCount);
                     }
-                    else if (_strikeCount < 50)
+                    else if (_strikeCount < 200)
                     {
                         message = string.Format("UNSTOPPABLE! Devon strike count {0}!", _strikeCount);
                     }
-                    else if (_strikeCount < 60)
+                    else if (_strikeCount < 300)
                     {
                         message = string.Format("GODLIKE! Devon strike count {0}!", _strikeCount);
                     }
-                    else if (_strikeCount < 70)
+                    else if (_strikeCount < 400)
                     {
                         message = string.Format("Somebody stop him!!! Devon strike count {0}!", _strikeCount);
                     }
