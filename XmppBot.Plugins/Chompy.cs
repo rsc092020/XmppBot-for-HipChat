@@ -14,7 +14,7 @@ namespace XmppBot.Plugins
             if (line.Raw.IndexOf("(chompy)", StringComparison.InvariantCultureIgnoreCase) >= 0 || 
                 line.Raw.IndexOf("food", StringComparison.InvariantCultureIgnoreCase) >= 0)
             {
-                switch (_random.Next(8))
+                switch (_random.Next(9))
                 {
                     case 0: return "(turkey)";
                     case 1: return "(beer)";
@@ -24,6 +24,7 @@ namespace XmppBot.Plugins
                     case 5: return "(cookie)";
                     case 6: return "(forscale)";
                     case 7: return "(taco)";
+                    case 8: return "(cake)";
                 }
             }
 
