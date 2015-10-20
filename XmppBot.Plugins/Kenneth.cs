@@ -8,7 +8,7 @@ namespace XmppBot.Plugins
     [Export(typeof(IXmppBotPlugin))]
     public class Kenneth : XmppBotPluginBase, IXmppBotPlugin
     {
-        private static readonly DateTime _whenToStart = new DateTime(2015, 10, 20);
+        private static readonly DateTime _whenToStart = new DateTime(2015, 10, 21);
 
         private static readonly Random _random = new Random();
 
@@ -22,7 +22,7 @@ namespace XmppBot.Plugins
             var tokens = line.Raw.ToLower().Split(" \r\n\t".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).ToList();
 
             if ((tokens.Contains("kenneth") || tokens.Contains("ken")) &&
-                _random.Next(1) == 0)
+                _random.Next(3) == 0)
             {
                 return "yea, i miss kenneth too :'(";
             }
