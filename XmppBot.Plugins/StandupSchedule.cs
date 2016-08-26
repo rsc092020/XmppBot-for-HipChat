@@ -27,7 +27,7 @@ namespace XmppBot.Plugins
             {
                 if (DateTime.Now.DayOfWeek != DayOfWeek.Saturday && DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
                 {
-                    this.SendMessage("(standup) starts in 2 minutes guys. Be there or be square!",
+                    this.SendMessage("Standup starts in 2 minutes guys. Be there or be square!",
                         GetDefaultRoomJid(), BotMessageType.groupchat);
                 }
             });

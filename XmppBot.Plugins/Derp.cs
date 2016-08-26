@@ -23,13 +23,13 @@ namespace XmppBot.Plugins
 
                 switch (_random.Next(7))
                 {
-                    case 0: return "(derp)";
-                    case 1: return "(borat)";
-                    case 2: return "(bicepleft)(bumble)(bicepright)";
-                    case 3: return "(dumb)";
-                    case 4: return "(disapproval)";
-                    case 5: return "(grumpycat)";
-                    case 6: return "(okay)";
+                    case 0: return ":badman:";
+                    case 1: return ":keepo:";
+                    case 2: return ":facepalm:";
+                    case 3: return ":dumb:";
+                    case 4: return ":disapproval:";
+                    case 5: return ":crickets:";
+                    case 6: return ":pjsalt:";
                 }
             }
 

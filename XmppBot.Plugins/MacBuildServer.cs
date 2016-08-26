@@ -41,7 +41,7 @@ namespace XmppBot.Plugins
 
             if (_looking)
             {
-                return "(sweetjesus) hold your horses, I'm already looking!";
+                return ":stare: hold your horses, I'm already looking!";
             }
             else
             {

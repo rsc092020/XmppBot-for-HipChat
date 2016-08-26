@@ -15,7 +15,7 @@ namespace XmppBot.Plugins
             {
                 if (_random.Next(0, 4) == 0)
                 {
-                    return "(catchemall)";
+                    return "Exceptions, Gotta catch them all :pokeball:";
                 }
             }
 

@@ -9,7 +9,7 @@ namespace XmppBot.Plugins
     [Export(typeof(IXmppBotPlugin))]
     public class DevonStrikeCount : XmppBotPluginBase, IXmppBotPlugin
     {
-        private const string DevonsId = "92448_2201366";
+        private const string DevonsId = "dgilbert";
         private ulong _strikeCount = 20;
 
         public override string EvaluateEx(ParsedLine line)
@@ -62,7 +62,7 @@ namespace XmppBot.Plugins
                 else
                 {
                     _strikeCount += _strikeCount * 100;
-                    return "Nice try devon (derp)";
+                    return "Nice try devon :dumb:";
                 }
             }
 
