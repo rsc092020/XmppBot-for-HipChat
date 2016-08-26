@@ -93,8 +93,9 @@ namespace XmppBot.Common
 
             foreach (string room in rooms)
             {
-                Jid jid = new Jid(room + "@" + Config.ConferenceServer);
+                Jid jid = new Jid(room, Config.ConferenceServer, null);
                 mucManager.JoinRoom(jid, Config.RoomNick);
+                log.InfoFormat("Joined Room '{0}'.", room);
             }
         }
 
