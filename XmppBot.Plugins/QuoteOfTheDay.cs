@@ -28,9 +28,11 @@ namespace XmppBot.Plugins
         private static readonly Random _random = new Random();
         private DateTime _currentQuoteDay = DateTime.Today;
         private string _currentQuote = "";
+        private IDisposable _seqSubscription;
 
-        public QuoteOfTheDay()
+        public override void Initialize()
         {
+            base.Initialize();
             var nextStartTime = DateTime.Now.Date.Add(_startTime);
 
             if (nextStartTime < DateTime.Now)
@@ -40,7 +42,7 @@ namespace XmppBot.Plugins
 
             var seq = Observable.Timer(nextStartTime.AddMinutes(-1), TimeSpan.FromDays(1));
 
-            seq.Subscribe(msg =>
+            _seqSubscription = seq.Subscribe(msg =>
             {
                 if (DateTime.Now.DayOfWeek != DayOfWeek.Saturday && DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
                 {
@@ -48,6 +50,14 @@ namespace XmppBot.Plugins
                         GetDefaultRoomJid(), BotMessageType.groupchat);
                 }
             });
+
+        }
+
+        public override void Disable()
+        {
+            base.Disable();
+            _seqSubscription.Dispose();
+
         }
 
         public override string EvaluateEx(ParsedLine line)

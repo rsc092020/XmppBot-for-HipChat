@@ -112,7 +112,7 @@ namespace XmppBot.Common
                     //msg.From.Bare = Room 'email'
                     //msg.From.User = Room id
 
-                    user = _roster.Values.FirstOrDefault(u => u.Id == msg.From.Resource);
+                    user = _roster.Values.FirstOrDefault(u => u.Name == msg.From.Resource);
                 }
                 else
                 {
@@ -167,7 +167,7 @@ namespace XmppBot.Common
                                 var plugin = Plugins.FirstOrDefault(x => x.Name == arg);
                                 if (plugin != null)
                                 {
-                                    plugin.Enabled = false;
+                                    plugin.Disable();
                                     disableResponse.AppendLine(plugin.Name);
                                 }
                             }
@@ -188,6 +188,7 @@ namespace XmppBot.Common
                                 if (plugin != null)
                                 {
                                     plugin.Enabled = true;
+                                    plugin.Initialize();
                                     enableResponse.AppendLine(plugin.Name);
                                 }
                             }
@@ -301,8 +302,11 @@ namespace XmppBot.Common
                 // wire up message send event
                 plugin.SentMessage += new PluginMessageHandler(SendMessage);
 
-                // wire up plugin init
-                plugin.Initialize();
+                if (plugin.Enabled)
+                {
+                    // wire up plugin init
+                    plugin.Initialize();
+                }
             }
 
 

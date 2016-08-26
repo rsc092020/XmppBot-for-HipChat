@@ -26,6 +26,11 @@ namespace XmppBot.Common
 
         public virtual void Initialize() { }
 
+        public virtual void Disable()
+        {
+            this.Enabled = false;
+        }
+
         public virtual string Help(ParsedLine line)
         {
             if (this.Commands.Count <= 0)

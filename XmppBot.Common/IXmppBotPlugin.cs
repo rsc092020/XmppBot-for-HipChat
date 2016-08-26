@@ -7,6 +7,8 @@ namespace XmppBot.Common
     {
         void Initialize();
 
+        void Disable();
+
         string Evaluate(ParsedLine line);
 
         string Help(ParsedLine line);
