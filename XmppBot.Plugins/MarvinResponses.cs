@@ -10,8 +10,8 @@ namespace XmppBot.Plugins
     public class MarvinResponses : XmppBotPluginBase, IXmppBotPlugin
     {
         private static readonly Random _random = new Random();
-        private static readonly Regex _shutUpRegex = new Regex("((shut\\s*up|die|death)\\s*marvin)|(marvin\\s*(shut\\s*up|die|death))", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
-        private static readonly Regex _thankyouMarvinRegex = new Regex("thanks?\\s*(you)?,?\\s*marvin.*", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+        private static readonly Regex _shutUpRegex = new Regex($"((shut\\s*up|die|death)\\s*@?{Bot.Config.RoomNick})|(@?{Bot.Config.RoomNick}\\s*(shut\\s*up|die|death))", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+        private static readonly Regex _thankyouMarvinRegex = new Regex($"thanks?\\s*(you)?,?\\s*@?{Bot.Config.RoomNick}.*", RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
 
         public override string EvaluateEx(ParsedLine line)
         {
