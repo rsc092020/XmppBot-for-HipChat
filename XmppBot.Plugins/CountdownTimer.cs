@@ -60,7 +60,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "CountdownTimer"; }
+            get { return "countdown-timer"; }
         }
     }
 }

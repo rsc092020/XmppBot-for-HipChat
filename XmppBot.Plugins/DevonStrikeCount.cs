@@ -12,6 +12,8 @@ namespace XmppBot.Plugins
         private const string DevonsId = "dgilbert";
         private ulong _strikeCount = 20;
 
+        public override bool EnabledByDefault => false;
+
         public override string EvaluateEx(ParsedLine line)
         {
             if (line.User.Id == DevonsId && line.User.Name.IndexOf("devon", StringComparison.InvariantCultureIgnoreCase) < 0)
@@ -100,7 +102,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "DevonStrikeCount"; }
+            get { return "devon-strike"; }
         }
     }
 }

@@ -24,7 +24,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "ChrisSurprises"; }
+            get { return "chris-surprises"; }
         }
     }
 }

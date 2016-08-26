@@ -53,7 +53,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "MacBuildServer"; }
+            get { return "mac-build-server"; }
         }
 
         private async Task FindIpAddress(ParsedLine line)
@@ -98,8 +98,7 @@ namespace XmppBot.Plugins
 
                     if (string.IsNullOrWhiteSpace(_currentIp))
                     {
-                        this.SendMessage("Hmmm. I couldn't find the mac team city server... (shrug)", line.From,
-                            BotMessageType.groupchat);
+                        this.SendMessage("/shrug Hmmm. I couldn't find the mac team city server...", line.From, BotMessageType.groupchat);
                     }
                 }
             }

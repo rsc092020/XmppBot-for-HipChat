@@ -38,7 +38,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "Derp"; }
+            get { return "derp"; }
         }
     }
 }

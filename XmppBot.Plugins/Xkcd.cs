@@ -22,7 +22,7 @@ namespace XmppBot.Plugins
             {
                 if (line.Raw.IndexOf("http://xkcd", StringComparison.InvariantCultureIgnoreCase) >= 0)
                 {
-                    return "(haha)";
+                    return ":laughing:";
                 }
 
                 if (line.IsCommand && line.Command == "xkcd")
@@ -91,7 +91,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "Xkcd"; }
+            get { return "xkcd"; }
         }
     }
 }

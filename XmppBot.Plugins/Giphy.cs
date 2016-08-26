@@ -76,7 +76,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "Giphy"; }
+            get { return "giphy"; }
         }
 
         private class GiphyDatas

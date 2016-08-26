@@ -44,7 +44,7 @@ namespace XmppBot.Plugins
             {
                 if (DateTime.Now.DayOfWeek != DayOfWeek.Saturday && DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
                 {
-                    this.SendMessage("Quote of the day: \"" + GetQuoteOfTheDay() + "\"",
+                    this.SendMessage("Quote of the day: \n" + GetQuoteOfTheDay(),
                         GetDefaultRoomJid(), BotMessageType.groupchat);
                 }
             });
@@ -66,7 +66,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "QuoteOfTheDay"; }
+            get { return "quote"; }
         }
 
         private string GetQuoteOfTheDay()
@@ -81,7 +81,7 @@ namespace XmppBot.Plugins
 
         private string GetRandomQuote()
         {
-            return _quotes[_random.Next(_quotes.Length)];
+            return "> " + _quotes[_random.Next(_quotes.Length)];
         }
 
         //Taken from https://bugzilla.xamarin.com/quips.cgi?action=show

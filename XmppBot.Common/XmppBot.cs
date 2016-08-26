@@ -112,7 +112,7 @@ namespace XmppBot.Common
                     //msg.From.Bare = Room 'email'
                     //msg.From.User = Room id
 
-                    user = _roster.Values.FirstOrDefault(u => u.Name == msg.From.Resource);
+                    user = _roster.Values.FirstOrDefault(u => u.Id == msg.From.Resource);
                 }
                 else
                 {
@@ -120,31 +120,80 @@ namespace XmppBot.Common
                 }
 
                 // we can't find a user or this is the bot talking
-                if (null == user || Config.RoomNick == user.Name)
+                if (null == user || Config.User == user.Id)
                     return;
 
                 ParsedLine line = new ParsedLine(msg.From.Bare, msg.Body.Trim(), msg.From.User, user, (BotMessageType) msg.Type);
 
                 switch (line.Command)
                 {
-                    case "help":
-                        var helpText = new StringBuilder();
-                        var plist = Plugins.ToList();
-                        plist.Sort((c1, c2) => c1.Name.CompareTo(c2.Name));
+                    case "list":
+                    case "enabled":
+                        var text = new StringBuilder();
+                        text.AppendLine("Enabled Plugins: ");
+                        Plugins
+                            .Where(x => x.Enabled)
+                            .OrderBy(x => x.Name)
+                            .ToList()
+                            .ToList()
+                            .ForEach(x => text.AppendLine(x.Name));
 
-                        foreach (var p in plist)
+                        SendMessage(msg.From, text.ToString(), msg.Type);
+
+                        break;
+                    case "disabled":
+                        if (user.Id == "rcady")
                         {
-                            var helpLine = p.Help(line);
-                            if (!String.IsNullOrWhiteSpace(helpLine))
-                            {
-                                helpText.AppendLine(p.Help(line));
-                            }
+                            var disabledText = new StringBuilder();
+                            disabledText.AppendLine("Disabled Plugins: ");
+                            Plugins
+                                .Where(x => !x.Enabled)
+                                .OrderBy(x => x.Name)
+                                .ToList()
+                                .ForEach(x => disabledText.AppendLine(x.Name));
+
+                            SendMessage(msg.From, disabledText.ToString(), msg.Type);
                         }
 
-                        //helpText.AppendLine("-----------------------");
-                        //helpText.AppendLine("En/Dis-able a plugin: !disable|!enable <pluginname>");
-                        //helpText.AppendLine("List plugin names: !list");
-                        SendMessage(msg.From, helpText.ToString(), msg.Type);
+                        break;
+                    case "disable":
+                        if (user.Id == "rcady")
+                        {
+                            var disableResponse = new StringBuilder();
+                            disableResponse.Append("Now Disabled: ");
+
+                            foreach (var arg in line.Args)
+                            {
+                                var plugin = Plugins.FirstOrDefault(x => x.Name == arg);
+                                if (plugin != null)
+                                {
+                                    plugin.Enabled = false;
+                                    disableResponse.AppendLine(plugin.Name);
+                                }
+                            }
+
+                            SendMessage(msg.From, disableResponse.ToString(), msg.Type);
+                        }
+
+                        break;
+                    case "enable":
+                        if (user.Id == "rcady")
+                        {
+                            var enableResponse = new StringBuilder();
+                            enableResponse.Append("Now Enabled: ");
+
+                            foreach (var arg in line.Args)
+                            {
+                                var plugin = Plugins.FirstOrDefault(x => x.Name == arg);
+                                if (plugin != null)
+                                {
+                                    plugin.Enabled = true;
+                                    enableResponse.AppendLine(plugin.Name);
+                                }
+                            }
+
+                            SendMessage(msg.From, enableResponse.ToString(), msg.Type);
+                        }
 
                         break;
                     //case "close":
@@ -152,9 +201,9 @@ namespace XmppBot.Common
                     //    Environment.Exit(1);
                     //    return;
 
-                    case "reload":
-                        SendMessage(msg.From, LoadPlugins(), msg.Type);
-                        break;
+                    //case "reload":
+                    //    SendMessage(msg.From, LoadPlugins(), msg.Type);
+                    //    break;
 
                     default:
                         Task.Factory.StartNew(() =>
@@ -229,7 +278,9 @@ namespace XmppBot.Common
 
             if (_client != null)
             {
-                _client.Send(new Message(to, type, text));
+                // with slack the resource at the end causes the message to go to the user instead of the channel,
+                // so use .Bare
+                _client.Send(new Message(to.Bare, type, text));
             }
         }
 

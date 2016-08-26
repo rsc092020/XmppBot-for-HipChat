@@ -40,7 +40,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "Chompy"; }
+            get { return "chompy"; }
         }
     }
 }

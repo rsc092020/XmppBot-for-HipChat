@@ -12,6 +12,8 @@ namespace XmppBot.Plugins
     {
         private readonly TimeSpan _startTime = new TimeSpan(0, 9, 30, 0);
 
+        public override bool EnabledByDefault => false;
+
         public StandupSchedule()
         {
             var nextStartTime = DateTime.Now.Date.Add(_startTime);
@@ -40,7 +42,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "StandupSchedule"; }
+            get { return "standup-schedule"; }
         }
     }
 }

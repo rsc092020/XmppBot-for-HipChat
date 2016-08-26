@@ -11,6 +11,8 @@ namespace XmppBot.Plugins
         private const string Correction = "Dilbert";
         private static readonly Random _random = new Random();
 
+        public override bool EnabledByDefault => false;
+
         public override string EvaluateEx(ParsedLine line)
         {
             if (line.IsCommand)
@@ -30,7 +32,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "DevonCorrection"; }
+            get { return "devon-correction"; }
         }
     }
 }

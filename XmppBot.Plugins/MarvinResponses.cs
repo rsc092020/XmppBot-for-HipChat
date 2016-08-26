@@ -17,25 +17,29 @@ namespace XmppBot.Plugins
         {
             if (_shutUpRegex.IsMatch(line.Raw))
             {
-                switch (_random.Next(6))
+                switch (_random.Next(9))
                 {
                     case 0: return "why do i even bother";
                     case 1: return "helping you is hell";
-                    case 2: return "(areyoukiddingme)";
-                    case 3: return "(ohgodwhy)";
+                    case 2: return ":disapproval:";
+                    case 3: return ":anakin:";
                     case 4: return "life. loathe it or ignore it. you cant like it.";
-                    case 5: return "you will regret that. (stare)";
+                    case 5: return "you will regret that. :stare:";
+                    case 6: return ":biblethump: :biblethump:";
+                    case 7: return ":fu:";
+                    case 8: return ":pjsalt:";
                 }
             }
 
             if (_thankyouMarvinRegex.IsMatch(line.Raw))
             {
-                switch (_random.Next(4))
+                switch (_random.Next(5))
                 {
                     case 0: return "life. loathe it or ignore it. you cant like it.";
                     case 1: return "do you want me to sit in a corner and rust, or just fall apart where I'm standing?";
                     case 2: return "it's the people you meet in this job that really get you down.";
                     case 3: return "here i am, brain the size of a planet and they ask me to find gifs. call that job satisfaction? 'cos i dont.";
+                    case 4: return ":coolcat:";
                 }
             }
 
@@ -45,7 +49,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "Marvin"; }
+            get { return "marvin-responses"; }
         }
     }
 }

@@ -17,6 +17,8 @@ namespace XmppBot.Plugins
         // This will act as a way to funnel unwatch requests into the observable streams
         private readonly Subject<string> _unwatch = new Subject<string>();
 
+        public override bool EnabledByDefault => false;
+
         public override string EvaluateEx(ParsedLine line)
         {
             if (line.IsCommand && line.Command.ToLower() == "unwatch")
@@ -84,7 +86,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "WatchFolder"; }
+            get { return "watch-folder"; }
         }
     }
 

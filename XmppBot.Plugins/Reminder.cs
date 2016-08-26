@@ -86,7 +86,7 @@ namespace XmppBot.Plugins
 
         public override string Name
         {
-            get { return "Reminder"; }
+            get { return "reminder"; }
         }
     }
 }
